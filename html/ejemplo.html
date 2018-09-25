@@ -9,6 +9,8 @@
 
 		const picado = () => alert(1);
 
+		const crearElemento = nombre => document.createElement(nombre)
+
 		const cambiarPrimero = event => {
 			if (event.target.innerHTML === 'Cambio') {
 				const primero = document.querySelector('#un_id');
@@ -20,7 +22,7 @@
 		};
 
 		const ponerBoton = (props) => {
-			let button = document.createElement('button');
+			let button = crearElemento('button');
 
 			if (props.btn_id) button.id = props.btn_id;
 			if (props.texto) button.innerHTML = props.texto;
@@ -30,7 +32,7 @@
 		};
 
 		const ponerInput = (props) => {
-			let input = document.createElement('input');
+			let input = crearElemento('input');
 
 			if (props.input_id) input.id = props.input_id;
 			if (props.placeholder) input.placeholder = props.placeholder;
@@ -41,7 +43,7 @@
 
 		const hacerArreglo = () => {
 			const input = document.querySelector('#inp');
-			const arreglo = input.value.split('-');
+			const arreglo = input.value.split(' ');
 			console.log(arreglo);
 		};
 
