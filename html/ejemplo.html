@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		const picado = () => alert(1);
+
+		const cambiarPrimero = event => {
+			if (event.target.innerHTML === 'Cambio') {
+				const primero = document.querySelector('#un_id');
+				primero.innerHTML = 'Si me cambie';
+			}
+			else {
+				alert('Cambia el texto a "Cambio"');
+			}
+		};
+
+		const ponerBoton = (props) => {
+			let button = document.createElement('button');
+
+			if (props.btn_id) button.id = props.btn_id;
+			if (props.texto) button.innerHTML = props.texto;
+			if (props.onclick) button.onclick = props.onclick;
+
+			body.appendChild(button);
+		};
+
+		const ponerInput = (props) => {
+			let input = document.createElement('input');
+
+			if (props.input_id) input.id = props.input_id;
+			if (props.placeholder) input.placeholder = props.placeholder;
+			if (props.onkeyup) input.onkeyup = props.onkeyup;
+
+			body.appendChild(input);
+		};
+
+		const hacerArreglo = () => {
+			const input = document.querySelector('#inp');
+			const arreglo = input.value.split('-');
+			console.log(arreglo);
+		};
+
+		const body = document.querySelector('body');
+
+//=========================================================================
+
+		ponerBoton({
+			btn_id: 'un_id',
+			texto: 'El primero',
+			onclick: picado
+		});
+
+		ponerBoton({
+			texto: 'Cambio',
+			onclick: cambiarPrimero
+		});
+
+		ponerInput({
+			input_id: 'inp',
+			placeholder: 'Escribeme',
+			onkeyup: event => console.log(event.target.value)
+		});
+
+		ponerBoton({
+			texto: 'Hazlo arreglo',
+			onclick: hacerArreglo
+		})
+
+	</script>
+
+</body>
+</html>
