@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="text-align: center;">
+
+	<script type="text/javascript">
+
+//=========================================================================
+//----> Funciones y Body
+
+		const body = document.querySelector('body');
+
+		// Esta funcion siempre se usara cuando se quiera poner un elemento en el body
+		const ponerEnBody = hijo => body.appendChild(hijo);
+
+		// Cada que se tenga que crear un elemento se llama esta funcion
+		const crearHijo = etiqueta => document.createElement(etiqueta);
+
+		// Crea un elemento BR y lo pone directo en el body
+		const ponerBr = () => ponerEnBody(crearHijo('br'));
+
+		const boton = texto => {
+			let button = crearHijo('button');
+			button.innerHTML = texto;
+			(texto == '=') ? button.onclick = ponerResultado : button.onclick = ponerEnDiv;
+			ponerEnBody(button);
+		};
+
+		const desplegarCalculadora = () => {
+			const calculadora = [
+				7, 8, 9, '/',
+				4, 5, 6, 'x',
+				1, 2, 3, '-',
+				0, '.', '=', '+'
+			];
+
+			calculadora.map((elem, index) => {
+				boton(elem);
+				if (index == 3 || index == 7 || index == 11 || index == 15) ponerBr();
+			});
+		};
+
+		const resultadoDiv = () => {
+			let div = crearHijo('div');
+			div.id = 'resultado';
+			ponerEnBody(div);
+		};
+
+		const ponerEnDiv = event => {
+			const resultado = document.querySelector('#resultado');
+			const actual = resultado.innerHTML;
+
+			const valor = event.target.innerHTML;
+			let nuevo = valor;
+			if (valor == '/' || valor == 'x' || valor == '-' || valor == '+' || valor == '=')
+				nuevo = ` ${valor} `;
+
+			resultado.innerHTML = `${actual}${nuevo}`;
+		};
+
+		const ponerResultado = event => {
+			ponerEnDiv(event);
+			const div = document.querySelector('#resultado');
+			const actual = div.innerHTML;
+			const operacion = actual.split(' ');
+
+			let resultado;
+			switch(operacion[1]) {
+				case '+': resultado = suma(operacion[0], operacion[2]); break;
+				case '-': resultado = resta(operacion[0], operacion[2]); break;
+				case '/': resultado = division(operacion[0], operacion[2]); break;
+				case 'x': resultado = multiplicacion(operacion[0], operacion[2]); break;
+			}
+
+			div.innerHTML = `${actual}${resultado}`;
+		};
+
+		const suma = (num1, num2) => (num1 + num2);
+		const resta = (num1, num2) => (num1 - num2);
+		const division = (num1, num2) => (num1 / num2);
+		const multiplicacion = (num1, num2) => (num1 * num2);
+
+
+//=========================================================================
+//----> Todo el contenido esta en programacion funcional
+//----> Significa que todo lo que se usa es en base a funciones
+
+
+		ponerBr();
+		ponerBr();
+		ponerBr();
+
+		desplegarCalculadora();
+		resultadoDiv();
+
+
+	</script>
+
+</body>
+</html>
